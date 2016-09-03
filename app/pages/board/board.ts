@@ -1,5 +1,16 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
+
+@Component({
+    templateUrl: 'build/pages/boardDetail/boardDetail.html'
+})
+class BoardDetailPage {
+  item;
+
+  constructor(params: NavParams) {
+    this.item = params.data.item;
+  }
+}
 
 @Component({
     templateUrl: 'build/pages/board/board.html'
@@ -7,8 +18,9 @@ import {NavController} from 'ionic-angular';
 export class BoardPage {
     imgs: string[];
     items: Array<{title: string, preview: string, img: string}>;
+
     constructor(private navCtrl: NavController) {
-  
+
     this.imgs = ['img/1.jpg', 'img/2.jpg'];
 
     this.items = [];
@@ -22,7 +34,24 @@ export class BoardPage {
   }
 
   itemTapped(item) {
-    alert(item.title);
+    this.navCtrl.push(BoardDetailPage, {item: item});
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      for (var i = 0; i < 30; i++) {
+        this.items.push({
+          title: '추가된 게시글 ' + i,
+          preview: '추가된 게시글 #' + i +'번 입니다.',
+          img: this.imgs[Math.floor(Math.random() * this.imgs.length)]
+        });
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
   }
 
 }

@@ -4,18 +4,56 @@
       게시판
     </ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="icons" secondary>
+      <ion-segment-button value="school">
+        <ion-icon name="camera"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="american-football">
+        <ion-icon name="bookmark"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list>
     <ion-item *ngFor="let item of items" (click)="itemTapped(item)" class="item-content">
-        <ion-thumbnail item-left>
-            <img src="{{item.img}}">
-        </ion-thumbnail>
-        <h2>{{item.title}}</h2>
-        <p>{{item.preview}}</p>
+      <ion-avatar item-left>
+         <img src="{{item.img}}">
+      </ion-avatar>
+      <h2>{{item.title}}</h2>
+
+      <ion-row>
+        <ion-col>
+          <button primary clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button primary clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            11분전
+          </ion-note>
+        </ion-col>
+      </ion-row>
+
     </ion-item>
-  </ion-list>
+   </ion-list>
+
+   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+   </ion-infinite-scroll>
+
 
 </ion-content>

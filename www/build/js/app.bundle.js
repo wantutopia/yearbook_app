@@ -72,6 +72,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
+var BoardDetailPage = (function () {
+    function BoardDetailPage(params) {
+        this.item = params.data.item;
+    }
+    BoardDetailPage = __decorate([
+        core_1.Component({
+            templateUrl: 'build/pages/boardDetail/boardDetail.html'
+        }), 
+        __metadata('design:paramtypes', [ionic_angular_1.NavParams])
+    ], BoardDetailPage);
+    return BoardDetailPage;
+}());
 var BoardPage = (function () {
     function BoardPage(navCtrl) {
         this.navCtrl = navCtrl;
@@ -86,7 +98,22 @@ var BoardPage = (function () {
         }
     }
     BoardPage.prototype.itemTapped = function (item) {
-        alert(item.title);
+        this.navCtrl.push(BoardDetailPage, { item: item });
+    };
+    BoardPage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        console.log('Begin async operation');
+        setTimeout(function () {
+            for (var i = 0; i < 30; i++) {
+                _this.items.push({
+                    title: '추가된 게시글 ' + i,
+                    preview: '추가된 게시글 #' + i + '번 입니다.',
+                    img: _this.imgs[Math.floor(Math.random() * _this.imgs.length)]
+                });
+            }
+            console.log('Async operation has ended');
+            infiniteScroll.complete();
+        }, 500);
     };
     BoardPage = __decorate([
         core_1.Component({

@@ -9477,9 +9477,3 @@ body {
   font-family: "Roboto", "Helvetica Neue", sans-serif;
   font-size: 1.4rem;
   background-color: #fff; }
-
-.item-content {
-  background-color: #121fff; }
-
-.item .item-content {
-  background-color: transparent !important; }
